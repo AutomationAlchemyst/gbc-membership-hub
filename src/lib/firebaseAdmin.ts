@@ -1,5 +1,5 @@
 import admin from 'firebase-admin';
-import { serviceAccount } from './serviceAccount'; // You'll need to create this file
+import serviceAccount from './serviceAccount'; // You'll need to create this file
 
 if (!admin.apps.length) {
   try {

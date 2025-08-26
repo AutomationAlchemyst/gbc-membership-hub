@@ -3,6 +3,9 @@
 import { auth } from '@/lib/firebaseAdmin';
 import { revalidatePath } from 'next/cache';
 
+export const revalidate = 0; // <--- ADD THIS LINE
+
+
 export async function getAllUsers() {
   try {
     const userRecords = await auth.listUsers();

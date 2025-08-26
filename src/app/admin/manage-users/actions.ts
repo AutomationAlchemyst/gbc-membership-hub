@@ -2,11 +2,11 @@
 
 import { auth } from '@/lib/firebaseAdmin';
 import { revalidatePath } from 'next/cache';
-
-export const revalidate = 0; // <--- ADD THIS LINE
-
+import { unstable_noStore as noStore } from 'next/cache'; // 1. ADD THIS IMPORT
 
 export async function getAllUsers() {
+  noStore(); // 2. ADD THIS FUNCTION CALL
+
   try {
     const userRecords = await auth.listUsers();
     const users = userRecords.users.map((user) => ({
@@ -24,7 +24,7 @@ export async function getAllUsers() {
 export async function updateUserRole(uid: string, isAdmin: boolean) {
   try {
     await auth.setCustomUserClaims(uid, { admin: isAdmin ? true : null });
-    revalidatePath('/admin/manage-users');
+    revalidatePath('/admin/manage-users'); // This is great for updating after a role change!
     return { success: true };
   } catch (error) {
     console.error('Error updating user role:', error);

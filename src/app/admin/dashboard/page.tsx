@@ -2,6 +2,8 @@ import { AdminDashboard } from '@/components/AdminDashboard';
 import { db } from '@/lib/firebaseAdmin';
 import type { Member } from '@/lib/types';
 
+export const revalidate = 0;
+
 export default async function AdminDashboardPage() {
   let membersData: Member[] = [];
 

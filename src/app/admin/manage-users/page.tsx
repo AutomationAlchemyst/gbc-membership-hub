@@ -1,7 +1,7 @@
 import { getAllUsers } from './actions';
 import { UserManagementTable } from '@/components/UserManagementTable';
 
-export const revalidate = 0; // <--- ADD THIS LINE
+export const revalidate = 0; // This is the correct file for this line!
 
 export default async function ManageUsersPage() {
   const users = await getAllUsers();

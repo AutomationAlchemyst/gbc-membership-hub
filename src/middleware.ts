@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 export const config = {
   matcher: ['/admin/:path*', '/login'],
-  runtime: 'edge',
+  runtime: 'experimental-edge',
 };
 
 export function middleware(request: NextRequest) {

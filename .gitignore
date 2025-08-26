@@ -43,3 +43,6 @@ next-env.d.ts
 # firebase
 firebase-debug.log
 firestore-debug.log
+
+# Firebase Service Account Key
+gbc-membership-hub-mgsie-firebase-adminsdk-fbsvc-94de46ba0a.json

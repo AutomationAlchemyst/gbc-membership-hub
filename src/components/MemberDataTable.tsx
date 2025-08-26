@@ -188,7 +188,7 @@ export function MemberDataTable({ data }: MemberDataTableProps) {
                 onChange={(event) =>
                     table.getColumn("name")?.setFilterValue(event.target.value)
                 }
-                className="max-w-sm"
+                className="w-full md:w-auto"
                 />
                 <Button onClick={downloadCSV} variant="outline">
                     <Download className="mr-2 h-4 w-4" />

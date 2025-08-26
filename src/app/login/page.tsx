@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
@@ -96,6 +97,11 @@ export default function LoginPage() {
               {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
               Login
             </Button>
+            <Link href="/" passHref>
+              <Button variant="link" className="mt-4 text-xs text-muted-foreground">
+                &larr; Back to registration form
+              </Button>
+            </Link>
           </CardFooter>
         </form>
       </Card>

@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { LayoutDashboard, Loader2, LogOut, Users } from 'lucide-react';
-import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
+import { Loader2, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
@@ -60,46 +59,32 @@ export default function AdminLayout({
 
   if (isAuthorized) {
     return (
-      <SidebarProvider>
-        <div className="flex h-screen bg-secondary/50">
-          <Sidebar>
-            <SidebarHeader>{/* Sidebar Header */}</SidebarHeader>
-            <SidebarContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <Link href="/admin/dashboard">
-                    <SidebarMenuButton isActive={pathname === '/admin/dashboard'}>
-                      <LayoutDashboard />
-                      Dashboard
-                    </SidebarMenuButton>
-                  </Link>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <Link href="/admin/manage-users">
-                    <SidebarMenuButton isActive={pathname === '/admin/manage-users'}>
-                      <Users />
-                      Manage Users
-                    </SidebarMenuButton>
-                  </Link>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarContent>
-          </Sidebar>
-          
-          <div className="flex flex-1 flex-col overflow-auto min-w-0">
-            <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-4 backdrop-blur sm:px-6">
-              <h1 className="text-xl font-semibold font-headline text-primary">GBC Admin Dashboard</h1>
-              <Button variant="ghost" size="icon" onClick={handleSignOut} aria-label="Sign Out">
-                <LogOut className="h-5 w-5" />
-              </Button>
-            </header>
-            
-            <main className="flex-1 p-4 sm:p-6 lg:p-8">
-              {children}
-            </main>
+      <div className="flex h-screen flex-col bg-secondary/50">
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-4 backdrop-blur sm:px-6">
+          <div className="flex items-center gap-6">
+            <h1 className="text-lg font-semibold font-headline text-primary">GBC Admin</h1>
+            <nav className="flex items-center gap-2">
+              <Link href="/admin/dashboard" passHref>
+                <Button variant={pathname === '/admin/dashboard' ? 'secondary' : 'ghost'} size="sm">
+                  Dashboard
+                </Button>
+              </Link>
+              <Link href="/admin/manage-users" passHref>
+                <Button variant={pathname === '/admin/manage-users' ? 'secondary' : 'ghost'} size="sm">
+                  Manage Users
+                </Button>
+              </Link>
+            </nav>
           </div>
-        </div>
-      </SidebarProvider>
+          <Button variant="ghost" size="icon" onClick={handleSignOut} aria-label="Sign Out">
+            <LogOut className="h-5 w-5" />
+          </Button>
+        </header>
+        
+        <main className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8">
+          {children}
+        </main>
+      </div>
     );
   }
 

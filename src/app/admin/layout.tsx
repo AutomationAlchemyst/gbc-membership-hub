@@ -19,7 +19,6 @@ export default function AdminLayout({
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
 
-  // This useEffect hook correctly protects all admin routes
   useEffect(() => {
     async function checkAdminStatus() {
       try {
@@ -40,19 +39,17 @@ export default function AdminLayout({
     checkAdminStatus();
   }, [router]);
   
-  // The new sign-out function, which signs out of both client and server
   const handleSignOut = async () => {
     try {
-      await signOut(auth); // Sign out of client-side Firebase
-      await fetch('/api/auth/session', { method: 'DELETE' }); // Destroy server session
-      window.location.href = '/login'; // Redirect with a full page refresh
+      await signOut(auth);
+      await fetch('/api/auth/session', { method: 'DELETE' });
+      window.location.href = '/login';
     } catch (error) {
       console.error("Error signing out: ", error);
-      window.location.href = '/login'; // Redirect even if there's an error
+      window.location.href = '/login';
     }
   };
 
-  // Renders a loading spinner while checking authorization
   if (isLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-background">
@@ -61,7 +58,6 @@ export default function AdminLayout({
     );
   }
 
-  // If authorized, render the full admin layout with sidebar and header
   if (isAuthorized) {
     return (
       <SidebarProvider>
@@ -90,8 +86,7 @@ export default function AdminLayout({
             </SidebarContent>
           </Sidebar>
           
-          {/* This div contains the main content area, including the header */}
-          <div className="flex flex-1 flex-col overflow-auto">
+          <div className="flex flex-1 flex-col overflow-auto min-w-0">
             <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-4 backdrop-blur sm:px-6">
               <h1 className="text-xl font-semibold font-headline text-primary">GBC Admin Dashboard</h1>
               <Button variant="ghost" size="icon" onClick={handleSignOut} aria-label="Sign Out">
@@ -99,7 +94,6 @@ export default function AdminLayout({
               </Button>
             </header>
             
-            {/* The page content ({children}) is now rendered inside this main tag */}
             <main className="flex-1 p-4 sm:p-6 lg:p-8">
               {children}
             </main>
@@ -109,6 +103,5 @@ export default function AdminLayout({
     );
   }
 
-  // Render nothing if not authorized, as the redirect is in progress
   return null;
 }
